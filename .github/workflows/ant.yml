@@ -1,0 +1,32 @@
+name: Build with Ant
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'  # Hoặc phiên bản Java bạn cần
+          distribution: 'adopt'
+
+      - name: Install Apache Ant
+        run: |
+          sudo apt-get update
+          sudo apt-get install ant
+
+      - name: Build with Ant
+        working-directory: code/HKTmobile  # Đường dẫn đến thư mục dự án
+        run: ant
